@@ -88,4 +88,14 @@ public class EmployeeTest {
         assertEquals("female", jsonArray.getJSONObject(0).getString("gender"));
     }
 
+    @Test
+    public void return_new_company_list_when_delete_a_company() throws Exception {
+
+        String content = mockMvc.perform(delete("/employees/1")).andDo(print()).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        JSONArray jsonArray = new JSONArray(content);
+
+        assertEquals(1, jsonArray.length());
+
+    }
 }
