@@ -47,17 +47,17 @@ public class EmployeeController {
         return null;
     }
 
-//    @GetMapping("")
-//    public ResponseEntity getMaleEmployee(@RequestParam(name = "gender", required = false) String gender) {
-//        initData();
-//        List<Employee> employee_male = new ArrayList<>();
-//        for (Employee employee : employees) {
-//            if (employee.getGender() == gender) {
-//                employee_male.add(employee);
-//            }
-//        }
-//        return ResponseEntity.ok().body(employee_male);
-//    }
+    @GetMapping()
+    public ResponseEntity getMaleEmployee(@RequestParam("gender") String gender) {
+        initData();
+        List<Employee> employee_male = new ArrayList<>();
+        for (Employee employee : employees) {
+            if (employee.getGender() == gender) {
+                employee_male.add(employee);
+            }
+        }
+        return ResponseEntity.ok().body(employee_male);
+    }
 
     @PostMapping("")
     public ResponseEntity createEmployee(@RequestBody Employee employee) {

@@ -51,15 +51,18 @@ public class EmployeeTest {
         assertEquals(22, jsonArray.getInt("age"));
     }
 
-//    @Test
-//    public void return_male_employees_when_get_a_employee() throws Exception {
-//        String content = mockMvc.perform(get("/employees?gender=male")).andExpect(status().isOk())
-//                .andReturn().getResponse().getContentAsString();
-//        JSONArray jsonArray = new JSONArray(content);
-//        assertEquals(1, jsonArray.getJSONObject(0).getInt("id"));
-//        assertEquals("Tony", jsonArray.getJSONObject(0).getString("name"));
-//        assertEquals(22, jsonArray.getJSONObject(0).getInt("age"));
-//    }
+    @Test
+    public void return_male_employees_when_get_male_employee() throws Exception {
+        String content = mockMvc.perform(get("/employees").param("gender","male")).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        JSONArray jsonArray = new JSONArray(content);
+        assertEquals(1, jsonArray.getJSONObject(0).getInt("id"));
+        assertEquals("Tony", jsonArray.getJSONObject(0).getString("name"));
+
+        assertEquals(2, jsonArray.getJSONObject(1).getInt("id"));
+        assertEquals("Jerry", jsonArray.getJSONObject(1).getString("name"));
+
+    }
     @Test
     public void return_status_is_created_when_put_new_company() throws Exception {
         Map<String,String> employee = new HashMap();
