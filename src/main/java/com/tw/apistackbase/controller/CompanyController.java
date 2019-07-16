@@ -23,19 +23,35 @@ public class CompanyController {
 
     private List<Company> companies = new ArrayList<>();
 
-    private List<Employee> employees = new ArrayList<>();
+    private List<Employee> employees_1 = new ArrayList<>();
+    private List<Employee> employees_2 = new ArrayList<>();
 
     private void initData(){
-        employees.add(new Employee(1,"Tony",22,"male",10000));
-        employees.add(new Employee(2,"Jerry",25,"male",15000));
+        employees_1.add(new Employee(1,"Tony",22,"male",10000));
+        employees_1.add(new Employee(2,"Jerry",25,"male",15000));
 
-        companies.add(new Company(1,"alibaba",10000,employees));
+        employees_2.add(new Employee(1,"Glen",21,"male",14000));
+        employees_2.add(new Employee(2,"Kevin",24,"male",8000));
+
+        companies.add(new Company(1,"alibaba",10000,employees_1));
+        companies.add(new Company(2,"tencent",10000,employees_2));
     }
 
     @GetMapping()
     public ResponseEntity getAllCompanies() {
         initData();
         return ResponseEntity.ok().body(companies);
+    }
+
+    @GetMapping("{companyId}")
+    public ResponseEntity getSpecificCompany(@PathVariable int companyId) {
+        initData();
+        for (Company company : companies) {
+            if (company.getCompanyId() == companyId) {
+                return ResponseEntity.ok().body(company);
+            }
+        }
+        return null;
     }
 
 
