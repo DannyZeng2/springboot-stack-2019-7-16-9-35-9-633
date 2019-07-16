@@ -2,11 +2,9 @@ package com.tw.apistackbase.controller;
 
 import com.tw.apistackbase.entity.Company;
 import com.tw.apistackbase.entity.Employee;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +37,7 @@ public class EmployeeController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity getSpecificEmployees(@PathVariable int id) {
+    public ResponseEntity getSpecificEmployee(@PathVariable int id) {
         initData();
         for (Employee employee : employees) {
             if (employee.getId() == id) {
@@ -48,4 +46,25 @@ public class EmployeeController {
         }
         return null;
     }
+
+//    @GetMapping("")
+//    public ResponseEntity getMaleEmployee(@RequestParam(name = "gender", required = false) String gender) {
+//        initData();
+//        List<Employee> employee_male = new ArrayList<>();
+//        for (Employee employee : employees) {
+//            if (employee.getGender() == gender) {
+//                employee_male.add(employee);
+//            }
+//        }
+//        return ResponseEntity.ok().body(employee_male);
+//    }
+
+    @PostMapping("")
+    public ResponseEntity createEmployee(@RequestBody Employee employee) {
+        initData();
+        employees.add(employee);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
 }
