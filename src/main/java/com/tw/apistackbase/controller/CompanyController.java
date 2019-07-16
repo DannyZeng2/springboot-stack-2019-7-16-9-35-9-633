@@ -80,6 +80,17 @@ public class CompanyController {
         return ResponseEntity.ok().body(companies);
     }
 
+    @DeleteMapping("{companyId}")
+    public ResponseEntity deleteCompany(@PathVariable int companyId) {
+        initData();
+        for (Company company : companies) {
+            if (company.getCompanyId() == companyId) {
+                companies.remove(company);
+            }
+        }
+        return ResponseEntity.ok().body(companies);
+    }
+
 
 
 
