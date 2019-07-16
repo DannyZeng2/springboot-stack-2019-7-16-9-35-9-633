@@ -69,6 +69,17 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PutMapping("{companyId}")
+    public ResponseEntity updateCompanyInfomation(@PathVariable int companyId) {
+        initData();
+        for (Company company : companies) {
+            if (company.getCompanyId() == companyId) {
+                company.setCompanyName("wangyi");
+            }
+        }
+        return ResponseEntity.ok().body(companies);
+    }
+
 
 
 
