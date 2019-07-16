@@ -52,6 +52,19 @@ public class EmployeeTest {
     }
 
     @Test
+    public void return__employees_when_get_age_employee() throws Exception {
+        String content = mockMvc.perform(get("/employees").param("page","1").param("pageSize","5")).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        JSONArray jsonArray = new JSONArray(content);
+        assertEquals(1, jsonArray.getJSONObject(0).getInt("id"));
+        assertEquals("Tony", jsonArray.getJSONObject(0).getString("name"));
+
+        assertEquals(2, jsonArray.getJSONObject(1).getInt("id"));
+        assertEquals("Jerry", jsonArray.getJSONObject(1).getString("name"));
+
+    }
+
+    @Test
     public void return_male_employees_when_get_male_employee() throws Exception {
         String content = mockMvc.perform(get("/employees").param("gender","male")).andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();

@@ -23,13 +23,6 @@ public class EmployeeController {
         employees.add(new Employee(2, "Jerry", 25, "male", 15000));
     }
 
-//    GET       /employees/1  # obtain a certain specific employee
-//    GET       /employees?page=1&pageSize=5  #Page query, page equals 1, pageSize equals 5
-//    GET       /employees?gender=male   #screen all male employees
-//    POST      /employees    # add an employee
-//    PUT       /employees/1  #update an employee
-//    DELETE    /employees/1  #delete an employee
-
     @GetMapping()
     public ResponseEntity getAllEmployees() {
         initData();
@@ -45,6 +38,18 @@ public class EmployeeController {
             }
         }
         return null;
+    }
+
+    @GetMapping()
+    public ResponseEntity getCurrPageEmployee(@RequestParam int page,@RequestParam int pageSize) {
+        initData();
+        List<Employee> employees_new = new ArrayList<>();
+
+        int fromIndex = (page-1)*pageSize;
+        int toIndex = (page-1)*pageSize+pageSize;
+        employees_new = employees.subList(fromIndex,2);
+
+        return ResponseEntity.ok().body(employees_new);
     }
 
     @GetMapping()
