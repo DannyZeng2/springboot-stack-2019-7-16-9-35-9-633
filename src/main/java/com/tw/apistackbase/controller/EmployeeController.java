@@ -66,5 +66,17 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity updateEmployeeInfomation(@PathVariable int id) {
+        initData();
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                employee.setName("Sally");
+                employee.setGender("female");
+            }
+        }
+        return ResponseEntity.ok().body(employees);
+    }
+
 
 }

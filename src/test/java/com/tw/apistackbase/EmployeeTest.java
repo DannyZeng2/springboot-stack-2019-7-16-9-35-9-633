@@ -15,8 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -76,6 +75,17 @@ public class EmployeeTest {
 
         this.mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectJson)).andExpect(status().isCreated());
+    }
+
+    @Test
+    public void return_new_company_list_when_update_a_company() throws Exception {
+
+        String content = mockMvc.perform(put("/employees/1")).andDo(print()).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        JSONArray jsonArray = new JSONArray(content);
+
+        assertEquals("Sally", jsonArray.getJSONObject(0).getString("name"));
+        assertEquals("female", jsonArray.getJSONObject(0).getString("gender"));
     }
 
 }
