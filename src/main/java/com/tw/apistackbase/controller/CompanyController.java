@@ -30,8 +30,8 @@ public class CompanyController {
         employees_1.add(new Employee(1,"Tony",22,"male",10000));
         employees_1.add(new Employee(2,"Jerry",25,"male",15000));
 
-        employees_2.add(new Employee(1,"Glen",21,"male",14000));
-        employees_2.add(new Employee(2,"Kevin",24,"male",8000));
+        employees_2.add(new Employee(3,"Glen",21,"male",14000));
+        employees_2.add(new Employee(4,"Kevin",24,"male",8000));
 
         companies.add(new Company(1,"alibaba",10000,employees_1));
         companies.add(new Company(2,"tencent",10000,employees_2));
@@ -49,6 +49,17 @@ public class CompanyController {
         for (Company company : companies) {
             if (company.getCompanyId() == companyId) {
                 return ResponseEntity.ok().body(company);
+            }
+        }
+        return null;
+    }
+
+    @GetMapping("{companyId}/employees")
+    public ResponseEntity getCompanyEmployees(@PathVariable Integer companyId) {
+        initData();
+        for (Company company : companies) {
+            if (company.getCompanyId() == companyId) {
+                return ResponseEntity.ok().body(company.getEmployees());
             }
         }
         return null;
