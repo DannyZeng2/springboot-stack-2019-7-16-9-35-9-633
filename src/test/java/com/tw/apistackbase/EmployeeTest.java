@@ -1,6 +1,7 @@
 package com.tw.apistackbase;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,15 @@ public class EmployeeTest {
         assertEquals(2, jsonArray.getJSONObject(1).getInt("id"));
         assertEquals("Jerry", jsonArray.getJSONObject(1).getString("name"));
         assertEquals(25, jsonArray.getJSONObject(1).getInt("age"));
+    }
 
+    @Test
+    public void return_a_company_when_get_a_company() throws Exception {
+        String content = mockMvc.perform(get("/employees/1")).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        JSONObject jsonArray = new JSONObject(content);
+        assertEquals(1, jsonArray.getInt("id"));
+        assertEquals("Tony", jsonArray.getString("name"));
+        assertEquals(22, jsonArray.getInt("age"));
     }
 }

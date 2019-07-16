@@ -1,5 +1,6 @@
 package com.tw.apistackbase.controller;
 
+import com.tw.apistackbase.entity.Company;
 import com.tw.apistackbase.entity.Employee;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +25,27 @@ public class EmployeeController {
         employees.add(new Employee(2, "Jerry", 25, "male", 15000));
     }
 
+//    GET       /employees/1  # obtain a certain specific employee
+//    GET       /employees?page=1&pageSize=5  #Page query, page equals 1, pageSize equals 5
+//    GET       /employees?gender=male   #screen all male employees
+//    POST      /employees    # add an employee
+//    PUT       /employees/1  #update an employee
+//    DELETE    /employees/1  #delete an employee
 
     @GetMapping()
     public ResponseEntity getAllEmployees() {
         initData();
         return ResponseEntity.ok().body(employees);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity getSpecificEmployees(@PathVariable int id) {
+        initData();
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                return ResponseEntity.ok().body(employee);
+            }
+        }
+        return null;
     }
 }
