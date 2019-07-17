@@ -46,7 +46,7 @@ public class EmployeeController {
         List<Employee> employees_new = new ArrayList<>();
 
         int fromIndex = (page-1)*pageSize;
-        int toIndex = (page-1)*pageSize+pageSize;
+        int toIndex = (page-1)*pageSize+pageSize+employees.size()%pageSize;
         employees_new = employees.subList(fromIndex,2);
 
         return ResponseEntity.ok().body(employees_new);

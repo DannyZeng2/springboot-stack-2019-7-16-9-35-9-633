@@ -52,7 +52,7 @@ public class EmployeeTest {
     }
 
     @Test
-    public void return__employees_when_get_age_employee() throws Exception {
+    public void return_employees_when_get_current_page_employee() throws Exception {
         String content = mockMvc.perform(get("/employees").param("page","1").param("pageSize","5")).andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         JSONArray jsonArray = new JSONArray(content);

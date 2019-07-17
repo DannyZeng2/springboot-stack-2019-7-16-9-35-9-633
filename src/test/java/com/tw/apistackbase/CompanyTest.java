@@ -66,6 +66,20 @@ public class CompanyTest {
     }
 
     @Test
+    public void return__employees_when_get_age_employee() throws Exception {
+        String content = mockMvc.perform(get("/companies").param("page","1").param("pageSize","5")).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        JSONArray jsonArray = new JSONArray(content);
+        assertEquals(1, jsonArray.getJSONObject(0).getInt("companyId"));
+        assertEquals("alibaba", jsonArray.getJSONObject(0).getString("companyName"));
+
+        assertEquals(2, jsonArray.getJSONObject(1).getInt("companyId"));
+        assertEquals("tencent", jsonArray.getJSONObject(1).getString("companyName"));
+
+    }
+
+
+    @Test
     public void return_status_is_created_when_put_new_company() throws Exception {
         Map<String,String> company = new HashMap();
         company.put("companyId","3");

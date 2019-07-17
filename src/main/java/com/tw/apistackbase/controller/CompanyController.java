@@ -71,6 +71,19 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+
+    @GetMapping()
+    public ResponseEntity getCurrPageCompanies(@RequestParam int page,@RequestParam int pageSize) {
+        initData();
+        List<Company> companies_new = new ArrayList<>();
+
+        int fromIndex = (page-1)*pageSize;
+        int toIndex = (page-1)*pageSize+pageSize+companies.size()%pageSize;
+        companies_new = companies.subList(fromIndex,toIndex);
+
+        return ResponseEntity.ok().body(companies_new);
+    }
+
     @PutMapping("{companyId}")
     public ResponseEntity updateCompanyInfomation(@PathVariable int companyId) {
         initData();
