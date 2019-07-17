@@ -47,7 +47,7 @@ public class EmployeeController {
 
         int fromIndex = (page-1)*pageSize;
         int toIndex = (page-1)*pageSize+pageSize+employees.size()%pageSize;
-        employees_new = employees.subList(fromIndex,2);
+        employees_new = employees.subList(fromIndex,toIndex);
 
         return ResponseEntity.ok().body(employees_new);
     }
